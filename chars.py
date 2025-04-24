@@ -8,6 +8,11 @@ class Char():
         self.speed = speed
         self.lvl = lvl
         self.exp = exp
+        # fruit
+        if random.random() < 0.50:
+            self.pocket = 0
+        else:
+            self.pocket = 1
 
     def lvl_up(self):
         self.health += 3
@@ -16,11 +21,17 @@ class Char():
         self.lvl += 1
         self.exp = 0
 
-    def test_print_char(self):
-        print(self.name)
-        print(self.health)
-        print(self.power)
-        print(self.speed)
+    def get_char_info(self):
+        return [self.name, self.health, self.power, self.speed, self.lvl, self.exp, self.pocket]
+    
+    def get_health_char(self):
+        return self.health
+
+    def get_power_char(self):
+        return self.power
+    
+    def get_speed_char(self):
+        return self.speed
 
 def generate_name():
     name = ''
@@ -30,8 +41,8 @@ def generate_name():
     for i in range(count):
         name += n1[random.randint(0, len(n1) - 1)]
         name += n2[random.randint(0, len(n2) - 1)]
-    if (count % 2 == 0):
-        name += n1[random.randint(0, len(n2) - 1)]
+    if (count == 2):
+        name += n1[random.randint(0, len(n1) - 1)]
 
     return name
 
@@ -39,4 +50,5 @@ def get_begin_char():
     health = random.randint(3, 9)
     power = random.randint(3, 9)
     speed = random.randint(3, 9)
-    return Char(generate_name(), health, power, speed, 1, 0)        
+    return Char(generate_name(), health, power, speed, 1, 0)
+
