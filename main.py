@@ -15,7 +15,6 @@ help_win.print_help()
 hero = player.Player(3, [chars.get_begin_char(), chars.get_begin_char(), chars.get_begin_char()])
 hero.add_character(chars.get_begin_char())
 hero.add_character(chars.get_begin_char())
-# hero.print_info()
 
 hero.print_battle_characters()
 print()
@@ -33,8 +32,11 @@ elif (event == 'nothing'):
 print()
 print('\t -> ', end='')
 
-# key = input()
-key = 's'
+key = input()
+# key = 's'
 if (key == 's'):
     clear()
     hero.switch_char()
+
+clear()
+hero.print_battle_characters()
