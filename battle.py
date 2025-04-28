@@ -37,8 +37,11 @@ def battle(enemy, main_chars, hero):
             print('\n\t-> ', end='')
             k = input()
             if (k == 'b'):
-                beat(enemy, main_char)
-                clear()
+                if (main_char.get_health_char() > 0):
+                    beat(enemy, main_char)
+                else:
+                    battle_log = 'switch char'
+                    clear()
             elif (k == 'e'):
                 if (main_char.eat_fruit()):
                     battle_log = 'your char eat fruit and restore full hp'
