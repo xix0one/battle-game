@@ -22,3 +22,5 @@ class Arrow():
 
     def arrow_exit(self):
         self.position = -1
+
+pointer = Arrow()

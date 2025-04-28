@@ -1,12 +1,7 @@
 import chars
 import random
-import arrow
-from help_win import switch_help
-
-pointer = arrow.Arrow()
-
-def clear():
-    print('\033[H\033[J', end='', flush=True)
+from arrow import pointer
+from help_win import switch_help, clear
 
 def print_header():
     stats = [
@@ -29,7 +24,7 @@ class Player():
     def __init__(self, fr, ch):
         self.fruit = fr
         self.characters = ch
-        self.battle_characters = [0, 1, 2]
+        self.battle_characters = [ch[0], ch[1], ch[2]]
         self.switch_error = False
 
     def print_battle_characters(self):
@@ -37,8 +32,8 @@ class Player():
         print_header()
         for i in range(len(self.battle_characters)):
             print('\t', end='| ')
-            for j in range(len(self.characters[self.battle_characters[i]].get_char_info())):
-                print((f'{self.characters[self.battle_characters[i]].get_char_info()[j]}').ljust(6, ' ') , '|', end=' ')
+            for j in range(len(self.battle_characters[i].get_char_info())):
+                print((f'{self.battle_characters[i].get_char_info()[j]}').ljust(6, ' ') , '|', end=' ')
 
             if (pointer.get_position() >= 0):
                 if (pointer.get_position() == i):
@@ -88,9 +83,8 @@ class Player():
                           0
                           )
 
-    def print_enemy(self, enemy):
-        e = enemy.get_char_info()
-        print('\tyou meet: ')
+    def print_char(self, char):
+        e = char.get_char_info()
         print('\t' + '-' * 64)
         print_header()
         print('\t| ', end='')
@@ -122,6 +116,8 @@ class Player():
                 pointer.arrow_down(count)
             elif (k == 'w'):
                 pointer.arrow_up(count)
+            elif (k == 'q'):
+                return 'q'
             clear()
             switch_help()
             function()
@@ -132,10 +128,19 @@ class Player():
     def switch_char(self):
         while (1):
             new_battle_char = self.choose_in_switch_char(len(self.characters) - 1, self.print_info)
+            if (new_battle_char == 'q'): break
+
             old_battle_char = self.choose_in_switch_char(len(self.battle_characters) - 1, self.print_battle_characters)
+            if (old_battle_char == 'q'): break
+
             if (new_battle_char[1] != old_battle_char[1]):
-                self.battle_characters[old_battle_char[1]] = new_battle_char[1]
+                self.battle_characters[old_battle_char[1]] = new_battle_char[0]
                 break
             else:
                 self.switch_error = True
+
         pointer.arrow_exit()
+        clear()
+
+    def get_battle_chars(self):
+        return self.battle_characters

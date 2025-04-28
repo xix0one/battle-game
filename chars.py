@@ -2,8 +2,9 @@ import random
 
 class Char():
     def __init__(self, name, health, power, speed, lvl, exp):
+        self.full_health = health
         self.name = name
-        self.health = health
+        self.health = self.full_health
         self.power = power
         self.speed = speed
         self.lvl = lvl
@@ -15,11 +16,19 @@ class Char():
             self.pocket = 1
 
     def lvl_up(self):
-        self.health += 3
+        self.full_health += 3
+        self.health = self.full_health
         self.power += 3
         self.speed += 3
         self.lvl += 1
         self.exp = 0
+
+    def eat_fruit(self):
+        if (self.pocket > 0):
+            self.health = self.full_health
+            self.pocket -= 1
+            return True
+        return False
 
     def get_char_info(self):
         return [self.name, self.health, self.power, self.speed, self.lvl, self.exp, self.pocket]
@@ -32,6 +41,12 @@ class Char():
     
     def get_speed_char(self):
         return self.speed
+    
+    def damage_health(self, count):
+        if (self.health - count > 0):
+            self.health -= count
+        else:
+            self.health = 0
 
 def generate_name():
     name = ''
@@ -51,4 +66,3 @@ def get_begin_char():
     power = random.randint(3, 9)
     speed = random.randint(3, 9)
     return Char(generate_name(), health, power, speed, 1, 0)
-

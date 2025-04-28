@@ -2,41 +2,51 @@ import chars
 import player
 import help_win
 import path
+import battle
 from colorama import init
 init()
 
-def clear():
-    print('\033[H\033[J', end='', flush=True)
-
-clear()
-
-help_win.print_help()
+help_win.clear()
 
 hero = player.Player(3, [chars.get_begin_char(), chars.get_begin_char(), chars.get_begin_char()])
-hero.add_character(chars.get_begin_char())
-hero.add_character(chars.get_begin_char())
 
-hero.print_battle_characters()
-print()
+def loop():
+    block = False
+    event = ''
+    enemy = ''
+    while (1):
+        help_win.print_help()
+        hero.print_battle_characters()
+        print()
 
-event = path.generate_event()
+        if (event == 'char'):
+            if (block == False):
+                enemy = hero.generate_enemy()
+                block = True
+            print('\tyou meet: ')
+            hero.print_char(enemy)
+        elif (event == 'fruit'):
+            print('\tfruit')
+        elif (event == 'nothing'):
+            print('\tnothing')
 
-if (event == 'char'):
-    enemy = hero.generate_enemy()
-    hero.print_enemy(enemy)
-elif (event == 'fruit'):
-    print('\tfruit')
-elif (event == 'nothing'):
-    print('\tnothing')
+        print()
+        print('\t -> ', end='')
 
-print()
-print('\t -> ', end='')
+        key = input()
+        if (key == 's'):
+            help_win.clear()
+            hero.switch_char()
+        elif (key == 'q'):
+            break
+        elif (key == 'g'):
+            if (block == False):
+                event = path.generate_event()
+            help_win.clear()
+        elif (key == 'b' and block):
+            battle.battle(enemy, hero.get_battle_chars(), hero)
+            block = False
+        else:
+            help_win.clear()
 
-key = input()
-# key = 's'
-if (key == 's'):
-    clear()
-    hero.switch_char()
-
-clear()
-hero.print_battle_characters()
+loop()
