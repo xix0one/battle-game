@@ -45,6 +45,8 @@ def loop():
             help_win.clear()
         elif (key == 'b' and block):
             battle.battle(enemy, hero.get_battle_chars(), hero)
+            event = ''
+            enemy = ''
             block = False
         else:
             help_win.clear()

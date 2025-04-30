@@ -64,21 +64,24 @@ class Player():
         print()
     
     def generate_enemy(self):
-        max_health = 0
-        max_power = 0
-        max_speed = 0
+        total_health = 0
+        total_power = 0
+        total_speed = 0
+        num_characters = len(self.characters)
+
         for i in range(len(self.characters)):
-            if (max_health < self.characters[i].get_health_char()):
-                max_health = self.characters[i].get_health_char()
-            if (max_power < self.characters[i].get_power_char()):
-                max_power = self.characters[i].get_power_char()
-            if (max_speed < self.characters[i].get_speed_char()):
-                max_speed = self.characters[i].get_speed_char()
+            total_health += self.characters[i].get_health_char()
+            total_power += self.characters[i].get_power_char()
+            total_speed += self.characters[i].get_speed_char()
+
+        avg_health = total_health / num_characters
+        avg_power = total_power / num_characters
+        avg_speed = total_speed / num_characters
 
         return chars.Char(chars.generate_name(), 
-                          random.randint((max_health - 2), (max_health + 3)),
-                          random.randint((max_power - 2), (max_power + 3)),
-                          random.randint((max_speed - 2), (max_speed + 3)),
+                          random.randint(int(avg_health  * 0.9), int(avg_health * 1.1)),
+                          random.randint(int(avg_power * 0.9), int(avg_power * 1.1)),
+                          random.randint(int(avg_speed * 0.9), int(avg_speed * 1.1)),
                           1,
                           0
                           )
