@@ -9,11 +9,16 @@ class Char():
         self.speed = speed
         self.lvl = lvl
         self.exp = exp
+        self.lvl_threshold = 20
+
         # fruit
         if random.random() < 0.50:
             self.pocket = 0
         else:
             self.pocket = 1
+
+    def get_name(self):
+        return self.name
 
     def lvl_up(self):
         self.full_health += 3
@@ -22,6 +27,17 @@ class Char():
         self.speed += 1
         self.lvl += 1
         self.exp = 0
+        self.lvl_threshold += self.lvl_threshold
+
+    def update_xp(self):
+        self.exp += 10
+        if (self.exp >= self.lvl_threshold):
+            self.lvl_up()
+            return True
+        return False
+
+    def give_fruit(self):
+        self.pocket += 1
 
     def restore_hp(self):
         self.health = self.full_health
@@ -38,6 +54,12 @@ class Char():
     
     def get_health_char(self):
         return self.health
+    
+    def get_full_health(self):
+        return self.full_health
+    
+    def get_lvl_char(self):
+        return self.lvl
 
     def get_power_char(self):
         return self.power

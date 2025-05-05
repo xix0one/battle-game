@@ -13,13 +13,13 @@ def print_help():
     print()
     print('\tcommands' + '*' * 30)
     print('\t| go: "g"; battle: "b"; try run: "r" |')
-    print(('\t| switch char: "s";').ljust(38, ' ') + '|')
+    print(('\t| switch char: "s"; pick fruit: "e";').ljust(38, ' ') + '|')
     print('\t' + '*' * 38)
     print()
 
 def switch_help():
     print_header()
-    print('\t| arrow down: "s"; arrow up: "w"; use: "e"; |')
+    print('\t| arrow down: "s"; arrow up: "w"; use: "e";|')
     print(('\t| close: "q"; choose char for switch ').ljust(44, ' ') + '|')
     print_end()
 
@@ -39,4 +39,10 @@ def battle_help():
 def end_battle():
     print_header()
     print(('\t| exit from battle: "q"').ljust(44, ' ') + '|')
+    print_end()
+
+def pick_fruit():
+    print_header()
+    print(('\t| who to give the fruit?').ljust(44, ' ') + '|')
+    print(('\t| arrow down: "s"; arrow up: "w"; use: "e" |').ljust(44, ' '))
     print_end()
