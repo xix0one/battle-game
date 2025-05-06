@@ -18,8 +18,13 @@ def loop():
     enemy = ''
     while (1):
         help_win.print_help()
+        hero.print_life()
         hero.print_battle_characters(False)
         print()
+
+        if (hero.get_life() <= 0):
+            print('\t-> you lose')
+            break
 
         if (event == 'char'):
             if (block == False):
@@ -57,6 +62,17 @@ def loop():
                 event = ''
                 pick_fruit.choose_char_fruit(hero)
             help_win.clear()
+        elif (key == 'r' and block):
+            if (hero.try_run()):
+                event = ''
+                enemy = ''
+                block = False
+                help_win.clear()
+            else:
+                battle.battle(enemy, hero.get_battle_chars(), hero)
+                event = ''
+                enemy = ''
+                block = False
         else:
             help_win.clear()
 

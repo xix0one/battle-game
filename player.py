@@ -28,8 +28,16 @@ class Player():
         self.life = 3
 
     def lost_life(self):
-        if (self.life > 1):
-            self.life -= 1
+        self.life -= 1
+
+    def get_life(self):
+        return self.life
+    
+    def try_run(self):
+        return (random.random() * 100) <= 25
+
+    def print_life(self):
+        print(f'\tlife: {self.life}\n')
 
     def restore_all_hp(self):
         for i in range(len(self.battle_characters)):

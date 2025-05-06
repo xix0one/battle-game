@@ -158,6 +158,16 @@ def battle(enemy, main_chars, hero):
                     break
                 else:
                     beat_after_switch(enemy, main_char)
+            elif (k == 'r'):
+                if (hero.try_run()):
+                    hero.restore_all_hp()
+                    choose_char = True
+                    battle_log = ''
+                    break
+                else:
+                    beat_after_switch(enemy, main_char)
+                    battle_log += ' cant run'
+                
         clear()
 
     pointer.arrow_exit()
