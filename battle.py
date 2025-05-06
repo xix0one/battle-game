@@ -28,12 +28,11 @@ def lose(hero):
     
 
 def check_lose(hero, main_chars):
-    if (main_chars[0].get_health_char() == 0 
-        and main_chars[1].get_health_char() == 0
-        and main_chars[2].get_health_char() == 0):
-        hero.lost_life()
-        return True
-    return False
+    for i in range(len(main_chars)):
+        if (main_chars[i].get_health_char() > 0 or main_chars[i].get_count_fruit() > 0):
+            return False
+    hero.lost_life()
+    return True
 
 def start_battle(enemy, main_chars, hero):
     global choose_char
@@ -51,7 +50,8 @@ def start_battle(enemy, main_chars, hero):
         elif (k == 'w'):
             pointer.arrow_up(len(main_chars) - 1)
         elif (k == 'e'):
-            if (main_chars[pointer.get_position()].get_health_char() > 0):
+            if (main_chars[pointer.get_position()].get_health_char() > 0 
+                or main_chars[pointer.get_position()].get_count_fruit() > 0):
                 choose_char = False
                 main_char = main_chars[pointer.get_position()]
                 return main_char
@@ -121,6 +121,11 @@ def battle(enemy, main_chars, hero):
             hero.print_char(main_char)
             print(f'\n\t log: {battle_log}')
             print('\n\t-> ', end='')
+
+            if (check_lose(hero, main_chars)):
+                lose(hero)
+                break
+
             k = input()
             if (k == 'b'):
                 if (check_lose(hero, main_chars)):
@@ -148,9 +153,6 @@ def battle(enemy, main_chars, hero):
                     update_xp_char.append(main_char)
                 if (main_char.get_health_char() > 0):
                     beat_after_switch(enemy, main_char)
-                if (check_lose(hero, main_chars)):
-                    lose(hero)
-                    break
             elif (k == 'c'):
                 if (catch(enemy, hero, main_char)):
                     choose_char = True

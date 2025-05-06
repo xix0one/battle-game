@@ -19,6 +19,9 @@ class Char():
 
     def get_name(self):
         return self.name
+    
+    def get_count_fruit(self):
+        return self.pocket
 
     def lvl_up(self):
         self.full_health += 3
