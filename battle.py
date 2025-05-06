@@ -159,14 +159,17 @@ def battle(enemy, main_chars, hero):
                 else:
                     beat_after_switch(enemy, main_char)
             elif (k == 'r'):
-                if (hero.try_run()):
-                    hero.restore_all_hp()
-                    choose_char = True
-                    battle_log = ''
-                    break
+                if (main_char.get_health_char() > 0):
+                    if (hero.try_run()):
+                        hero.restore_all_hp()
+                        choose_char = True
+                        battle_log = ''
+                        break
+                    else:
+                        beat_after_switch(enemy, main_char)
+                        battle_log += ' cant run'
                 else:
-                    beat_after_switch(enemy, main_char)
-                    battle_log += ' cant run'
+                    battle_log = 'switch char or eat fruit'
                 
         clear()
 

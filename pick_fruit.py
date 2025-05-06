@@ -9,6 +9,7 @@ def choose_char_fruit(hero):
         clear()
         pick_fruit()
         hero.print_info(True)
+        hero.print_battle_characters(False)
         
         print()
         print('\t -> ', end='')
